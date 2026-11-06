@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "colorvoice",
+  "version": "${version}",
+  "name": "ColorVoice",
+  "description": "Sag eine Farbe im Voice Chat und alle Blöcke im Umkreis werden zu Blöcken dieser Farbe.",
+  "authors": ["du"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["de.colorvoice.ColorVoiceMod"],
+    "voicechat": ["de.colorvoice.ColorVoicePlugin"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.1",
+    "minecraft": "26.2.*",
+    "java": ">=25",
+    "fabric-api": "*",
+    "voicechat": "*"
+  }
+}

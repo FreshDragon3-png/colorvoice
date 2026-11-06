@@ -1,0 +1,35 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = 'de.colorvoice'
+base { archivesName = 'colorvoice' }
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.maxhenkel.de/repository/public' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // Voice-Chat-API (nur zum Kompilieren, die Mod selbst muss auf dem Server installiert sein)
+    compileOnly "de.maxhenkel.voicechat:voicechat-api:${project.voicechat_api_version}"
+
+    // Offline-Spracherkennung (JNA bringt Minecraft schon mit)
+    implementation("com.alphacephei:vosk:0.3.45") { transitive = false }
+    include("com.alphacephei:vosk:0.3.45") { transitive = false }
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.withType(JavaCompile).configureEach { options.release = 25 }
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand 'version': project.version }
+}
